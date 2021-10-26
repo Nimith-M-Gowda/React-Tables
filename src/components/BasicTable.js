@@ -15,8 +15,14 @@ function BasicTable(props) {
     data: memoizedData,
   });
 
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    TableInstance;
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    footerGroups,
+    rows,
+    prepareRow,
+  } = TableInstance;
 
   return (
     <div>
@@ -45,6 +51,15 @@ function BasicTable(props) {
             );
           })}
         </tbody>
+        <tfoot>
+          {footerGroups.map((footerGroup) => (
+            <tr {...footerGroup.getFooterGroupProps()}>
+              {footerGroup.headers.map((column) => (
+                <th {...column.getFooterProps}>{column.render("Footer")}</th>
+              ))}
+            </tr>
+          ))}
+        </tfoot>
       </table>
     </div>
   );
