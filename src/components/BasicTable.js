@@ -43,7 +43,7 @@ function BasicTable(props) {
                       ? column.isSortedDesc
                         ? "sort desc"
                         : "sort inc"
-                      : "click to sort"}
+                      : ""}
                   </span>
                 </th>
               ))}
