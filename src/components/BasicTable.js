@@ -1,9 +1,10 @@
 import React, { useMemo } from "react";
 
-import { useTable, useSortBy } from "react-table";
+import { useTable, useSortBy, useGlobalFilter } from "react-table";
 
 import DATA from "../utils/MOCK_DATA.json";
 import { COMBINED_COLUMNS } from "../utils/Columns";
+import Search from "./SearchInput";
 import "../styles/BasicTable.css";
 
 function BasicTable(props) {
@@ -15,6 +16,7 @@ function BasicTable(props) {
       columns: memoizedColumn,
       data: memoizedData,
     },
+    useGlobalFilter,
     useSortBy
   );
 
@@ -25,10 +27,13 @@ function BasicTable(props) {
     footerGroups,
     rows,
     prepareRow,
+    state,
+    setGlobalFilter,
   } = TableInstance;
 
   return (
     <div>
+      <Search filter={state.globalFilter} setFilter={setGlobalFilter} />
       <table {...getTableProps()}>
         {/* thead */}
         <thead>
