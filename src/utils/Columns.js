@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const Columns = [
   {
     Header: "ID",
@@ -18,6 +20,7 @@ export const Columns = [
     Header: "Date of Birth",
     Footer: "Date of Birth",
     accessor: "date_of_birth",
+    Cell: ({ value }) => format(new Date(value), "dd/mm/yyyy"),
   },
   {
     Header: "Country",
@@ -57,6 +60,7 @@ export const COMBINED_COLUMNS = [
         Header: "Date of Birth",
         Footer: "Date of Birth",
         accessor: "date_of_birth",
+        Cell: ({ value }) => format(new Date(value), "dd/MM/yyyy"),
       },
       {
         Header: "Country",
