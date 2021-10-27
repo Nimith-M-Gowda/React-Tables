@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 
-import { useTable } from "react-table";
+import { useTable, useSortBy } from "react-table";
 
 import DATA from "../utils/MOCK_DATA.json";
 import { COMBINED_COLUMNS } from "../utils/Columns";
@@ -10,10 +10,13 @@ function BasicTable(props) {
   const memoizedColumn = useMemo(() => COMBINED_COLUMNS, []);
   const memoizedData = useMemo(() => DATA, []);
 
-  const TableInstance = useTable({
-    columns: memoizedColumn,
-    data: memoizedData,
-  });
+  const TableInstance = useTable(
+    {
+      columns: memoizedColumn,
+      data: memoizedData,
+    },
+    useSortBy
+  );
 
   const {
     getTableProps,
@@ -32,7 +35,17 @@ function BasicTable(props) {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("Header")}
+                  <br />
+                  <span style={{ fontSize: 10 }}>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? "sort desc"
+                        : "sort inc"
+                      : "click to sort"}
+                  </span>
+                </th>
               ))}
             </tr>
           ))}
@@ -55,7 +68,7 @@ function BasicTable(props) {
           {footerGroups.map((footerGroup) => (
             <tr {...footerGroup.getFooterGroupProps()}>
               {footerGroup.headers.map((column) => (
-                <th {...column.getFooterProps}>{column.render("Footer")}</th>
+                <th {...column.getFooterProps()}>{column.render("Footer")}</th>
               ))}
             </tr>
           ))}
