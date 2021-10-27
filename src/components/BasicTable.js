@@ -3,11 +3,11 @@ import React, { useMemo } from "react";
 import { useTable } from "react-table";
 
 import DATA from "../utils/MOCK_DATA.json";
-import COLUMNS from "../utils/Columns";
+import { COMBINED_COLUMNS } from "../utils/Columns";
 import "../styles/BasicTable.css";
 
 function BasicTable(props) {
-  const memoizedColumn = useMemo(() => COLUMNS, []);
+  const memoizedColumn = useMemo(() => COMBINED_COLUMNS, []);
   const memoizedData = useMemo(() => DATA, []);
 
   const TableInstance = useTable({
